@@ -1,7 +1,5 @@
 package HospitalModel;
 import simView.*;import java.lang.*;
-import java.util.LinkedList;
-
 import genDevs.modeling.*;
 import genDevs.simulation.*;
 import GenCol.*;
@@ -9,17 +7,17 @@ import util.*;
 import statistics.*;
 
 
-public class Receptionist extends ViewableAtomic {
-	protected int activeTime = 10;
+public class Doctor extends ViewableAtomic {
+	protected int activeTime = 20;
 	protected int count =0;
-	protected LinkedList<String> list = new LinkedList<>();
-	entity message = null;
-	public Receptionist()
+	protected String currPatient;
+	entity message;
+	public Doctor()
 	{
-		this("Receptionist");
+		this("Doctor");
 	}
 	
-	public Receptionist(String name){
+	public Doctor(String name){
 		   super(name);
 		   addInport("IN");
 		   addOutport("OUT");
@@ -34,15 +32,10 @@ public class Receptionist extends ViewableAtomic {
 	{
 	   Continue(e);
 	   for (int i=0; i< x.getLength();i++){
+		   message = x.getValOnPort("IN",i);
 	     if (messageOnPort(x, "IN", i)) {
-	    	 message = x.getValOnPort("IN", i);
-	    	 String temp = message.getName();
-	    	 if(temp.indexOf("Patient") == 0)
-	    		 list.addLast(temp);
-	    	 else
-	    		 list.addFirst(temp);
-	    	 System.out.println(list);
-	    	 holdIn("active", activeTime);
+	    	 currPatient = message.getName();
+	    	 holdIn("Active",activeTime);
 	     }
 	   }
 	}
@@ -61,7 +54,13 @@ public class Receptionist extends ViewableAtomic {
 	{
 	System.out.println(" OUT count "+count);
 	   message  m = new message();
-	   content con = makeContent("OUT", new entity("car "+Integer.toString(count)));
+	   content con;
+	   if(name.equals("DoctorOne"))
+			 con = makeContent("OUT", new entity("DoctorOne"+currPatient));
+	   else if(name.equals("DoctorTwo"))
+		     con = makeContent("OUT", new entity("DoctorTwo"+currPatient));
+	   else
+		   con = makeContent("OUT", new entity("DoctorThree"+currPatient));
 	   m.add(con);
 	   return m;
 	}

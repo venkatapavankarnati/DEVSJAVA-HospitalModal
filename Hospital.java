@@ -20,10 +20,24 @@ public class Hospital extends ViewableDigraph {
 		add(EmergencyPatient);
 		ViewableAtomic Receptionist = new Receptionist("Receptionist");
 		add(Receptionist);
+		ViewableAtomic DoctorOne = new Doctor("DoctorOne");
+		add(DoctorOne);
+		ViewableAtomic DoctorTwo = new Doctor("DoctorTwo");
+		add(DoctorTwo);
+		ViewableAtomic DoctorThree = new Doctor("DoctorThree");
+		add(DoctorThree);
+		ViewableAtomic transducer = new Transducer("transducer");
+		add(transducer);
 		
 		addCoupling(Patient, OUT, Receptionist, IN);
 		addCoupling(EmergencyPatient, OUT, Receptionist, IN);
-		addCoupling(Receptionist, OUT, this, OUT);
+		addCoupling(Receptionist,OUT,DoctorOne,IN);
+		addCoupling(Receptionist,OUT,DoctorTwo,IN);
+		addCoupling(Receptionist,OUT,DoctorThree,IN);
+		addCoupling(DoctorOne,OUT,transducer,IN);
+		addCoupling(DoctorTwo,OUT,transducer,IN);
+		addCoupling(DoctorThree,OUT,transducer,IN);
+		addCoupling(transducer, OUT, this, OUT);
 		
 }
     /**
@@ -32,12 +46,20 @@ public class Hospital extends ViewableDigraph {
      */
     public void layoutForSimView()
     {
-        preferredSize = new Dimension(625, 341);
+        preferredSize = new Dimension(802, 534);
+        if((ViewableComponent)withName("DoctorOne")!=null)
+             ((ViewableComponent)withName("DoctorOne")).setPreferredLocation(new Point(320, 44));
+        if((ViewableComponent)withName("DoctorThree")!=null)
+             ((ViewableComponent)withName("DoctorThree")).setPreferredLocation(new Point(327, 412));
         if((ViewableComponent)withName("EmergencyPatient")!=null)
-             ((ViewableComponent)withName("EmergencyPatient")).setPreferredLocation(new Point(72, 218));
+             ((ViewableComponent)withName("EmergencyPatient")).setPreferredLocation(new Point(4, 400));
         if((ViewableComponent)withName("Receptionist")!=null)
-             ((ViewableComponent)withName("Receptionist")).setPreferredLocation(new Point(324, 140));
+             ((ViewableComponent)withName("Receptionist")).setPreferredLocation(new Point(152, 235));
+        if((ViewableComponent)withName("DoctorTwo")!=null)
+             ((ViewableComponent)withName("DoctorTwo")).setPreferredLocation(new Point(330, 235));
         if((ViewableComponent)withName("Patient")!=null)
-             ((ViewableComponent)withName("Patient")).setPreferredLocation(new Point(79, 65));
+             ((ViewableComponent)withName("Patient")).setPreferredLocation(new Point(-2, 64));
+        if((ViewableComponent)withName("transducer")!=null)
+             ((ViewableComponent)withName("transducer")).setPreferredLocation(new Point(520, 235));
     }
 }

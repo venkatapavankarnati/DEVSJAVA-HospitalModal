@@ -11,8 +11,8 @@ import statistics.*;
 
 public class Patient extends ViewableAtomic {
 	protected int activeTime = 10;
-	protected int count =0;
-	
+	protected int patientCount =0,emerCount=0;
+	protected rand r;
 	public Patient()
 	{
 		this("Patient");
@@ -20,20 +20,28 @@ public class Patient extends ViewableAtomic {
 	
 	public Patient(String name){
 		   super(name);
+		   if(name.equals("Patient"))
+			   activeTime = 10;
+		   else
+			   activeTime=40;
 		   addInport("IN");
 		   addOutport("OUT");
 		}
 	
 	public void initialize(){
 		   holdIn("active", activeTime);
-		   count++;
+		   r = new rand(123987979);
+		   if(name.equals("Patient"))
+		   patientCount=1;
+		   else
+		   emerCount=1;
 		}
 	
 	public void  deltext(double e,message x)
 	{
 	   Continue(e);
 	   for (int i=0; i< x.getLength();i++){
-	     if (messageOnPort(x, "IN", i)) { //the stop message from tranducer
+	     if (messageOnPort(x, "IN", i)) {
 	       passivate();
 	     }
 	   }
@@ -41,22 +49,27 @@ public class Patient extends ViewableAtomic {
 	
 	public void  deltint( )
 	{
-
+		
 	if(phaseIs("active")){
-	   count++;
-	   holdIn("active",activeTime);
+	   if(name.equals("Patient"))
+		   		patientCount++; 
+		   else
+			  emerCount++;
+	   holdIn("active", Math.ceil(activeTime+r.uniform(5)));
 	}
 	else passivate();
 	}
 	
 	public message  out( )
 	{
-	System.out.println(" OUT count "+count);
 	   message  m = new message();
-	//   content con = makeContent("out", new entity("car" + count));
-	   content con = makeContent("OUT", new entity("car "+Integer.toString(count)));
+	   content con;
+	   System.out.println(name);
+	   if(name.equals("Patient"))
+		   con = makeContent("OUT", new entity("Patient"+Integer.toString(patientCount)));
+	   else
+		  con = makeContent("OUT", new entity("EmergencyPatient"+Integer.toString(emerCount)));
 	   m.add(con);
-
 	  return m;
 	}
 	
