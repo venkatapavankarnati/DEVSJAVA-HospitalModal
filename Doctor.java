@@ -24,18 +24,19 @@ public class Doctor extends ViewableAtomic {
 		}
 	
 	public void initialize(){
-		   holdIn("active", activeTime);
+		   holdIn("passive", INFINITY);
 		   count++;
 		}
 	
 	public void  deltext(double e,message x)
 	{
+		double rand = (Math.random()*10)+10;
 	   Continue(e);
 	   for (int i=0; i< x.getLength();i++){
 		   message = x.getValOnPort("IN",i);
 	     if (messageOnPort(x, "IN", i)) {
 	    	 currPatient = message.getName();
-	    	 holdIn("Active",activeTime);
+	    	 holdIn("Active",rand);
 	     }
 	   }
 	}
@@ -45,7 +46,7 @@ public class Doctor extends ViewableAtomic {
 
 	if(phaseIs("active")){
 	   count++;
-	   holdIn("active",activeTime);
+	   holdIn("passive", INFINITY);
 	}
 	else passivate();
 	}

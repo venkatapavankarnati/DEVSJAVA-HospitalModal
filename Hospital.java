@@ -9,7 +9,7 @@ import GenCol.*;
 import java.util.*;
 
 public class Hospital extends ViewableDigraph {
-	String IN = "IN", OUT = "OUT";
+	String IN = "IN", OUT = "OUT", outOne = "1OUT", outTwo = "2OUT", outThree = "3OUT";
 	public Hospital() {
 		super("Hospital");
 		addInport(IN);
@@ -31,13 +31,15 @@ public class Hospital extends ViewableDigraph {
 		
 		addCoupling(Patient, OUT, Receptionist, IN);
 		addCoupling(EmergencyPatient, OUT, Receptionist, IN);
-		addCoupling(Receptionist,OUT,DoctorOne,IN);
-		addCoupling(Receptionist,OUT,DoctorTwo,IN);
-		addCoupling(Receptionist,OUT,DoctorThree,IN);
+		addCoupling(Receptionist,outOne,DoctorOne,IN);
+		addCoupling(Receptionist,outTwo,DoctorTwo,IN);
+		addCoupling(Receptionist,outThree,DoctorThree,IN);
 		addCoupling(DoctorOne,OUT,transducer,IN);
 		addCoupling(DoctorTwo,OUT,transducer,IN);
 		addCoupling(DoctorThree,OUT,transducer,IN);
 		addCoupling(transducer, OUT, this, OUT);
+		addCoupling(transducer, OUT, Receptionist, IN);
+		
 		
 }
     /**
@@ -46,20 +48,20 @@ public class Hospital extends ViewableDigraph {
      */
     public void layoutForSimView()
     {
-        preferredSize = new Dimension(802, 534);
+        preferredSize = new Dimension(1031, 639);
         if((ViewableComponent)withName("DoctorOne")!=null)
-             ((ViewableComponent)withName("DoctorOne")).setPreferredLocation(new Point(320, 44));
+             ((ViewableComponent)withName("DoctorOne")).setPreferredLocation(new Point(358, 49));
         if((ViewableComponent)withName("DoctorThree")!=null)
-             ((ViewableComponent)withName("DoctorThree")).setPreferredLocation(new Point(327, 412));
+             ((ViewableComponent)withName("DoctorThree")).setPreferredLocation(new Point(395, 447));
         if((ViewableComponent)withName("EmergencyPatient")!=null)
              ((ViewableComponent)withName("EmergencyPatient")).setPreferredLocation(new Point(4, 400));
-        if((ViewableComponent)withName("Receptionist")!=null)
-             ((ViewableComponent)withName("Receptionist")).setPreferredLocation(new Point(152, 235));
+        if((ViewableComponent)withName("transducer")!=null)
+             ((ViewableComponent)withName("transducer")).setPreferredLocation(new Point(623, 44));
         if((ViewableComponent)withName("DoctorTwo")!=null)
-             ((ViewableComponent)withName("DoctorTwo")).setPreferredLocation(new Point(330, 235));
+             ((ViewableComponent)withName("DoctorTwo")).setPreferredLocation(new Point(373, 230));
         if((ViewableComponent)withName("Patient")!=null)
              ((ViewableComponent)withName("Patient")).setPreferredLocation(new Point(-2, 64));
-        if((ViewableComponent)withName("transducer")!=null)
-             ((ViewableComponent)withName("transducer")).setPreferredLocation(new Point(520, 235));
+        if((ViewableComponent)withName("Receptionist")!=null)
+             ((ViewableComponent)withName("Receptionist")).setPreferredLocation(new Point(152, 235));
     }
 }

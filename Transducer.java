@@ -9,6 +9,7 @@ public class Transducer extends ViewableAtomic {
 	String ACTIVE = "ACTIVE", OFF = "OFF", ON = "ON", BUSY = "BUSY";
 	int totalPatients=0;
 	entity message = null;
+	String currPatient = "";
 	public Transducer() {
 		this("Transducer");
 	}
@@ -20,7 +21,7 @@ public class Transducer extends ViewableAtomic {
 	}
 	
 	public void initialize() {
-		holdIn(ACTIVE, 100);
+		holdIn("passive", INFINITY);
 	}
 	
 	public void deltext(double e, message x) {
@@ -28,20 +29,20 @@ public class Transducer extends ViewableAtomic {
 		for (int i = 0; i < x.size(); i++) {
 			if (messageOnPort(x, IN, i)) {
 				message = x.getValOnPort(IN, i);
+				holdIn("active",0);
 				totalPatients++;
+				currPatient = message.getName();
 			}
 		}
 	}
 	
 	public void deltint() {
-		holdIn(ACTIVE, 100);
+		holdIn("passive", INFINITY);
 	}
 	
 	public message out() {
 		message m = new message();
-		if (phaseIs(ACTIVE)) {
-			m.add(makeContent(OUT, new entity(Integer.toString(totalPatients))));
-		}
+		m.add(makeContent(OUT, new entity(currPatient)));
 		return m;
 	}
 	
