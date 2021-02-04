@@ -10,9 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: update file
+          run: |
+            version=0
+            echo $version > ${{ github.workspace }}/Transducer
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding stuff testing 1
+          base: master
