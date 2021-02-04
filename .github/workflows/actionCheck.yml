@@ -17,7 +17,7 @@ jobs:
         run: |
           version=0
           echo $version > ${{ github.workspace }}/Transducer
-          echo "the head commit of master branch is ${{ github.event.pull_request.head.sha }}"
+          echo "the head commit of master branch is ${{ github.event.pull_request.base.sha }}"
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
