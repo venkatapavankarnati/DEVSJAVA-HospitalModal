@@ -12,13 +12,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           # fetch-depth:2
-          ref: ${{ github.event.pull_request.head.sha }}
+          # ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.base_ref }}
       - name: update file
         run: |
           version=0
           echo $version > ${{ github.workspace }}/Transducer
-          echo "the head commit of master branch is ${{ github.event.pull_request.base.sha }}"
-          echo "trail $${{ github.head_ref }}"
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
