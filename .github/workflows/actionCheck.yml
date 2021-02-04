@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: update file
-          run: |
-            version=0
-            echo $version > ${{ github.workspace }}/Transducer
+        run: |
+          version=0
+          echo $version > ${{ github.workspace }}/Transducer
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
