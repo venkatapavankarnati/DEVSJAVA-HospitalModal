@@ -3,6 +3,7 @@ name: Testing Actions
 on:
   push:
     tags:
+      - prod/*
 
 jobs:
   Testing:
