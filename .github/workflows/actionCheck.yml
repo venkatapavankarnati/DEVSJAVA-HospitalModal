@@ -22,5 +22,5 @@ jobs:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-1
-          base: ${{ github.event.pull_request.base.sha }}
+          base: ${{ github.event.pull_request.base }}
           # base: master
