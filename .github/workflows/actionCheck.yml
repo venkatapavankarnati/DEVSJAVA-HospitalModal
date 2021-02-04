@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          ref: ${{ github.event.pull_request.base.sha }}
       - name: update file
         run: |
           version=0
@@ -22,5 +22,5 @@ jobs:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-1
-          base: ${{ github.event.pull_request.base }}
+          # base: ${{ github.event.pull_request.base }}
           # base: master
