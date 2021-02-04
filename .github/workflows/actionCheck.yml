@@ -19,5 +19,5 @@ jobs:
         with:
           title: added stuff
           reviewers: ${{ github.actor }}
-          branch: adding stuff testing 1
+          branch: adding-stuff-testing-1
           base: master
