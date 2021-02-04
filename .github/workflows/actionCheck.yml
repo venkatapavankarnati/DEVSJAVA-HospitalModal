@@ -1,0 +1,28 @@
+name: Testing Actions
+
+on:
+  push:
+    tags:
+      - prod/*
+
+jobs:
+  Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # fetch-depth:2
+          # ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.base_ref }}
+      - name: update file
+        run: |
+          version=0
+          echo $version > ${{ github.workspace }}/Transducer
+      - name: create PR
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: added stuff
+          reviewers: ${{ github.actor }}
+          branch: adding-stuff-testing-1
+          # base: ${{ github.event.pull_request.base }}
+          # base: master
