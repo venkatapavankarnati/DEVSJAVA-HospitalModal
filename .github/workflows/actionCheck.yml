@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          # fetch-depth:2
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: update file
         run: |
           version=0
