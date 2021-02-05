@@ -13,10 +13,11 @@ jobs:
         run: |
           tag=${GITHUB_REF#refs/tags/}
           echo "tag is $tag"
+          currBranch=$(git branch --contains $tag)
       - name: checkout to branch
         uses: actions/checkout@v2
         with:
-          ref: $branch
+          ref: $currBranch
           # ref: ${{ github.event.pull_request.head.sha }}
           #ref: ${{ github.ref }}
       - name: update file
