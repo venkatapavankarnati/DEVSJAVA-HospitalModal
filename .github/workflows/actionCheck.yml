@@ -13,7 +13,7 @@ jobs:
         with:
           # fetch-depth:2
           # ref: ${{ github.event.pull_request.head.sha }}
-          ref: $GITHUB_REF
+          ref: ${{ github.ref }}
       - name: update file
         run: |
           version=0
