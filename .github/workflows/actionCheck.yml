@@ -14,10 +14,8 @@ jobs:
 
       - name: get the branch
         run: |
-          tag=${GITHUB_REF#refs/tags/}
-          echo "tag is $tag"
-          currBranch=$(git branch --contains $tag)
-          echo "current branch is $currBranch"
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw/origin\/}
 
       - name: update file
         run: |
@@ -30,6 +28,6 @@ jobs:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-1
-          base: $currBranch
+          base: $branch
           # base: ${{ github.event.pull_request.base }}
           # base: master
