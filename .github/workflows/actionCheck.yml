@@ -17,17 +17,19 @@ jobs:
           tag=${GITHUB_REF#refs/tags/}
           echo "tag is $tag"
           currBranch=$(git branch --contains $tag)
+          echo "current branch is $currBranch"
 
       - name: update file
         run: |
           version=0
           echo $version > ${{ github.workspace }}/Transducer
-          
+
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-1
+          base: $currBranch
           # base: ${{ github.event.pull_request.base }}
           # base: master
