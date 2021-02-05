@@ -9,17 +9,22 @@ jobs:
   Testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: get the branch
+        run: |
+          tag=${GITHUB_REF#refs/tags/}
+          branch=git branch --contains $tag
+          echo "tag is $tag"
+          echo "branch is $branch"
+      - name: checkout to branch
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          ref: $branch
           # ref: ${{ github.event.pull_request.head.sha }}
           #ref: ${{ github.ref }}
       - name: update file
         run: |
           version=0
           echo $version > ${{ github.workspace }}/Transducer
-          echo "branch name is ${{ github.ref }}"
-          echo "edited branch name is ${GITHUB_REF##*/}"
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
