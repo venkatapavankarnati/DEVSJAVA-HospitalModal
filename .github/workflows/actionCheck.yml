@@ -18,6 +18,8 @@ jobs:
         run: |
           version=0
           echo $version > ${{ github.workspace }}/Transducer
+          echo "branch name is ${{ github.ref }} OR ${GITHUB_REF}"
+          echo "edited branch name is ${GITHUB_REF##*/}"
       - name: create PR
         uses: peter-evans/create-pull-request@v3
         with:
