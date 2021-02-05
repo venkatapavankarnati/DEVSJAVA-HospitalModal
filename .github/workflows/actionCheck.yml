@@ -16,7 +16,7 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw/origin\/}
-          echo "current branch is $branch"
+          echo "current branch is $raw"
       - name: update file
         run: |
           version=0
