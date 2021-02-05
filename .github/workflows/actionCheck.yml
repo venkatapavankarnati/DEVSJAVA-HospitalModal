@@ -12,9 +12,7 @@ jobs:
       - name: get the branch
         run: |
           tag=${GITHUB_REF#refs/tags/}
-          branch=git branch --contains $tag
           echo "tag is $tag"
-          echo "branch is $branch"
       - name: checkout to branch
         uses: actions/checkout@v2
         with:
