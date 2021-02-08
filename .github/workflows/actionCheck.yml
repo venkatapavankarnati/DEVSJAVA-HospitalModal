@@ -32,6 +32,7 @@ jobs:
       - name: update file
         run: |
           version=0
+          echo "current branch using env is ${{ env.currBranch }}"
           echo $version > ${{ github.workspace }}/Transducer
 
       - name: create PR
