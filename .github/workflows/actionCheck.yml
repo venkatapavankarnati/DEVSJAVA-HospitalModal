@@ -21,11 +21,13 @@ jobs:
           echo "currBranch=${branch}" >> $GITHUB_ENV
           echo "raw branch is $raw"
           echo "current branch is $branch"
+          echo "current branch using env is ${{ env.currBranch }}"
+          echo "length of branch is ${#branch}"
 
       - name: checkout to branch
         uses: actions/checkout@v2
         with:
-          ref: $currBranch
+          ref: ${{ env.currBranch }}
 
       - name: update file
         run: |
