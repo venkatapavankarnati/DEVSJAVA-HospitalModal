@@ -19,7 +19,6 @@ jobs:
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw/origin\/}
           echo "currBranch=$branch" >> $GITHUB_ENV
-          echo "raw branch is $raw"
           echo "current branch is $branch"
           echo "length of branch is ${#branch}"
 
