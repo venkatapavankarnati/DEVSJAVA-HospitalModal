@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: checkout to branch
         uses: actions/checkout@v2
+        
+      - run: |
+          version=0
+          echo $version > ${{ github.workspace }}/Transducer2
+          
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
         
