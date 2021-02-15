@@ -47,5 +47,5 @@ jobs:
           title: added stuff
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-${{ env.currBranch }}
-          # base: ${{ github.event.pull_request.base }}
-          # base: master
+          body: Automated PR to increase the patch number as a new prod tag has been pushed to ${{ env.currBranch }} branch.
+          label: ${{ env.currBranch }}
