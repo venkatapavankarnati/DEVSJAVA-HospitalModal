@@ -47,4 +47,3 @@ jobs:
           reviewers: ${{ github.actor }}
           branch: adding-stuff-testing-${{ env.currBranch }}
           body: Automated PR to increase the patch number as a new prod tag has been pushed to ${{ env.currBranch }} branch.
-          labels: ${{ env.currBranch }}
