@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>testagain</id>
+   <version>1.0.0</version>
+    <title>testagain (Install)</title>
+    <authors>Pavan Karnati</authors>
+    <description>this is for testing</description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
