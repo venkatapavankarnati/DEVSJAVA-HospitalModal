@@ -1,0 +1,14 @@
+name: Choco Package
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  Testing:
+    runs-on: windows-latest
+    steps:
+      - name: checkout to branch
+        uses: actions/checkout@v2
+
+      - run: |
+          echo 'pavan'
