@@ -12,6 +12,7 @@ jobs:
 
       - name: Zipping the script
         run: | 
+          Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\package.zip"
           dir
 
       - name: checking
