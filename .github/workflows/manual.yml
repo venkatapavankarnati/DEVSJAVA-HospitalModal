@@ -12,8 +12,18 @@ jobs:
 
       - name: Zipping the script
         run: | 
-          Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\package.zip"
-          dir ".\validationTool\testagain"
+          Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\tools\test.zip"
+      
+      - name: testing the zip package
+        run: |
+          Expand-Archive -Force -Path ".\validationTool\testagain\tools\test.zip" -DestinationPath ".\validationTool"
+          dir ".\validationTool"
+
+      - name: Chocolatey Package
+        run: |
+          cd "validationTool\testagain"
+          $version = 1.1
+          choco pack --version=$version
           dir
 
       - name: checking
