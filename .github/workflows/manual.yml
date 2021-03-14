@@ -12,7 +12,7 @@ jobs:
 
       - name: Zipping the script
         run: | 
-          Compress-Archive -Force -Path "{{ github.workspace }}/validationTool/scripts" -DestinationPath "./validationTool/testagain/package.zip"
+          Compress-Archive -Force -Path "{{ github.workspace }}\validationTool\scripts" -DestinationPath ".\validationTool\testagain\package.zip"
           dir
 
       - name: checking
