@@ -10,5 +10,11 @@ jobs:
       - name: checkout to branch
         uses: actions/checkout@v2
 
-      - run: |
-          echo 'pavan'
+      - name: Zipping the script
+        run: | 
+          Compress-Archive -Force -Path "{{ github.workspace }}/validationTool/scripts" -DestinationPath "{{ github.workspace }}/ValidationTool/testagain/package.zip" 
+          dir
+
+      - name: checking
+        run: |
+        echo "hero"
