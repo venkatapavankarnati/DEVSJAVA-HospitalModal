@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: run only on testing-package
-        if: github.ref == 'refs/heads/testing-package'
+        if: github.ref != 'refs/heads/testing-package'
         run: |
           echo "this is a testing-package"
           exit 1
@@ -18,13 +18,7 @@ jobs:
 
       - name: Zipping the script
         run: | 
-          echo {{github.ref}}
           Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\tools\test.zip"
-      
-      - name: testing the zip package
-        run: |
-          Expand-Archive -Force -Path ".\validationTool\testagain\tools\test.zip" -DestinationPath ".\validationTool"
-          dir ".\validationTool\testagain"
 
       - name: Chocolatey Package
         run: |
@@ -37,9 +31,14 @@ jobs:
       - name: increment patch number
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
-          dir
           $incVersion = .\scripts\increment.ps1 $version
-          echo $incVersion
-          git restore .
-          git clean -f
+          Set-Content -Path ".\validationTool\version_base" -Value $incVersion
           git status
+
+      - name: create PR
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Bump deployment tool patch version
+          reviewers: ${{ github.actor }}
+          branch: bump-deployment-tool-patch-version-develop
+          body: Automated PR to increase the patch version of the deployment tool as a new choco package of tool has been pushed to jfrog.
