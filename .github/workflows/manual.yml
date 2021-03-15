@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: run only on testing-package
-        if: github.ref === 'refs/heads/testing-package'
+        if: github.ref == 'refs/heads/testing-package'
         run: |
           echo "this is a testing-package"
           exit 1
