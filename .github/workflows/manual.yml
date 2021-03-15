@@ -8,9 +8,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: run only on testing-package
-        if: github.ref != 'refs/heads/testing-package'
+        if: github.ref === 'refs/heads/testing-package'
         run: |
-          echo "Can only be run on testing-package"
+          echo "this is a testing-package"
           exit 1
     
       - name: checkout to branch
@@ -18,7 +18,7 @@ jobs:
 
       - name: Zipping the script
         run: | 
-          echo {{ github.ref }}
+          echo {{github.ref}}
           Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\tools\test.zip"
       
       - name: testing the zip package
