@@ -15,11 +15,10 @@ jobs:
     
       - name: checkout to branch
         uses: actions/checkout@v2
-        run: |
-          echo {{ github.ref }}
 
       - name: Zipping the script
         run: | 
+          echo {{ github.ref }}
           Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\tools\test.zip"
       
       - name: testing the zip package
