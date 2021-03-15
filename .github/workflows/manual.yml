@@ -21,11 +21,15 @@ jobs:
 
       - name: Chocolatey Package
         run: |
+          $version = Get-Content -Path ".\validationTool\version_base"
           cd "validationTool\testagain"
-          $version = 1.1
           choco pack --version=$version
           dir
+          cd ..\..
 
-      - name: checking
+      - name: increment patch number
         run: |
-          echo "hero"
+          $version = Get-Content -Path ".\validationTool\version_base"
+          dir
+          $incVersion = .\scripts\increment.ps1 $version
+          echo $incVersion
