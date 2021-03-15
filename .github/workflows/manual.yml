@@ -33,4 +33,5 @@ jobs:
           dir
           $incVersion = .\scripts\increment.ps1 $version
           echo $incVersion
+          git restore .
           git status
