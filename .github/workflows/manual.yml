@@ -34,9 +34,7 @@ jobs:
           cd ..\..
 
       - name: Bump minor version
-        uses: remorses/bump-version@js
-        with:
-          version_file: ./validationTool/package.json
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        uses: jaumann/github-bumpversion-action@v0.0.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE: ./validationTool/package.json
