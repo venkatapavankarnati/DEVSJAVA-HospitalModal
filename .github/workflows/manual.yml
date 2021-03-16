@@ -32,3 +32,10 @@ jobs:
           choco pack --version=${{env.PACKAGE_VERSION}}
           echo ${{env.PACKAGE_VERSION}}
           cd ..\..
+
+      - name: Bump minor version
+        uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          default: minor
