@@ -16,6 +16,11 @@ jobs:
       - name: checkout to branch
         uses: actions/checkout@v2
 
+      - name: Read package version
+        uses: nyaa8/package-version@v1
+        with:
+          path: './validationTool/package.json'
+
       - name: Zipping the script
         run: | 
           Compress-Archive -Force -Path ".\validationTool\scripts" -DestinationPath ".\validationTool\testagain\tools\test.zip"
@@ -24,21 +29,6 @@ jobs:
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
           cd "validationTool\testagain"
-          choco pack --version=$version
-          dir
+          choco pack --version=${{env.PACKAGE_VERSION}}
+          echo ${{env.PACKAGE_VERSION}}
           cd ..\..
-
-      - name: increment patch number
-        run: |
-          $version = Get-Content -Path ".\validationTool\version_base"
-          $incVersion = .\scripts\increment.ps1 $version
-          Set-Content -Path ".\validationTool\version_base" -Value $incVersion
-          git status
-
-      - name: create PR
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: Bump deployment tool patch version
-          reviewers: ${{ github.actor }}
-          branch: bump-deployment-tool-patch-version-develop
-          body: Automated PR to increase the patch version of the deployment tool as a new choco package of tool has been pushed to jfrog.
