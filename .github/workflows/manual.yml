@@ -23,19 +23,17 @@ jobs:
       - name: Chocolatey Package
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
+          echo "baseVersion=${version}" >> GITHUB_ENV
           cd "validationTool\testagain"
           cd ..\..
-        env:
-          baseVersion: $version
 
       - name: increment patch number
         run: |
-          echo ${baseVersion}
           $version = Get-Content -Path ".\validationTool\version_base"
           $incVersion = .\scripts\increment.ps1 $version
           Set-Content -Path ".\validationTool\version_base" -Value $incVersion
-          echo $baseVersion
-          echo "${baseVersion}"
+          echo ${{ env.baseVersion }}
+          echo "${{ env.baseVersion }}"
 
       - name: create PR
         uses: peter-evans/create-pull-request@v3
