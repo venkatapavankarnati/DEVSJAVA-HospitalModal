@@ -33,7 +33,6 @@ jobs:
           $incVersion = .\scripts\increment.ps1 $version
           Set-Content -Path ".\validationTool\version_base" -Value $incVersion
           echo "${{ env.action_state }}"
-          echo ${{ env.action_state }}
 
       - name: create PR
         uses: peter-evans/create-pull-request@v3
