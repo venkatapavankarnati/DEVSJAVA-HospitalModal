@@ -23,7 +23,6 @@ jobs:
       - name: Chocolatey Package
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
-          echo "action_state=yellow" >> $GITHUB_ENV
           cd "validationTool\testagain"
           cd ..\..
 
@@ -32,7 +31,7 @@ jobs:
           $version = Get-Content -Path ".\validationTool\version_base"
           $incVersion = .\scripts\increment.ps1 $version
           Set-Content -Path ".\validationTool\version_base" -Value $incVersion
-          echo "${{ env.action_state }}"
+          echo ".${version}."
 
       - name: create PR
         uses: peter-evans/create-pull-request@v3
