@@ -24,7 +24,6 @@ jobs:
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
           cd "validationTool\testagain"
-          choco pack --verison=$version
           cd ..\..
         env:
           baseVersion: $version
@@ -32,7 +31,7 @@ jobs:
       - name: increment patch number
         run: |
           echo ${baseVersion}
-          $incVersion = .\scripts\increment.ps1 ${baseVersion}
+          $incVersion = .\scripts\increment.ps1 $baseVersion
           Set-Content -Path ".\validationTool\version_base" -Value $incVersion
           echo $baseVersion
           echo "${baseVersion}"
