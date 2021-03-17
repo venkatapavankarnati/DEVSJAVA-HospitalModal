@@ -25,17 +25,18 @@ jobs:
           $version = Get-Content -Path ".\validationTool\version_base"
           echo "baseVersion=${version}" >> $GITHUB_ENV
           cd "validationTool\testagain"
-          choco pack --version=$version
-          echo ${{ env.baseVersion }}
+          echo "${{ env.baseVersion }}"
           cd ..\..
+        env:
+          baseVersion: $version
 
       - name: increment patch number
         run: |
+          echo ${baseVersion}
           $version = Get-Content -Path ".\validationTool\version_base"
           $incVersion = .\scripts\increment.ps1 $version
           Set-Content -Path ".\validationTool\version_base" -Value $incVersion
           git status
-          echo ${{ env.baseVersion }}
 
       - name: create PR
         uses: peter-evans/create-pull-request@v3
