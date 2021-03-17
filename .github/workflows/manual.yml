@@ -23,7 +23,7 @@ jobs:
       - name: Chocolatey Package
         run: |
           $version = Get-Content -Path ".\validationTool\version_base"
-          echo "baseVersion=${version}" >> GITHUB_ENV
+          echo "baseVersion=$version" >> GITHUB_ENV
           cd "validationTool\testagain"
           cd ..\..
 
